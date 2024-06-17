@@ -24,7 +24,7 @@ $posts = $request->fetchAll();
                         <?php
                         if (strlen($post['description']) > 100):
                             echo substr($post['description'], 0, 100) . '...'; ?>
-                            <a href="post.php?id=<?php echo $post['id']; ?>">Voir plus</a>
+                            <a href="ticket.php?id=<?php echo $post['id']; ?>">Voir plus</a>
                         <?php else:
                             echo $post['description'];
                             ?>
@@ -72,7 +72,7 @@ $posts = $request->fetchAll();
                 <h4><?php echo htmlspecialchars($numberBids) ?> offre(s) à partir de
                     <?php echo htmlspecialchars($lowestAmount) ?>€
                 </h4>
-                <a href="post.php?id=<?php echo $post['id']; ?>">Voir les offres</a>
+                <a href="ticket.php?id=<?php echo $post['id']; ?>">Voir les offres</a>
             </div>
         </div>
 
