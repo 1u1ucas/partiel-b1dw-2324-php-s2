@@ -70,40 +70,42 @@ if (isset($_GET['categorie']) && strlen($_GET['categorie'])) {
 
 <div class="post-list">
     <?php foreach ($posts as $index => $post): ?>
-    <div class="post container  mb-3">
-        <div class="leftPart">
-            <div class="top">
-                <h1>Football</h1>
-                <i class="categorie fa-solid <?php if ($post['categorie'] == "Hommes"): ?>
+        <div class="post container  mb-3">
+            <div class="leftPart">
+                <div class="top">
+                    <h1>Football</h1>
+                    <i class="categorie fa-solid <?php if ($post['categorie'] == "Hommes"): ?>
                 fa-mars <?php elseif ($post['categorie'] == "Femmes"): ?>
                     fa-venus <?php endif; ?>"></i>
-            </div>
-            <div class="content">
-                <p>
-                    <?php
+                </div>
+                <div class="content">
+                    <p>
+                        <?php
                         if (strlen($post['description']) > 100):
                             echo substr($post['description'], 0, 100) . '...'; ?>
-                    <a href="ticket.php?id=<?php echo $post['id']; ?>">Voir plus</a>
-                    <?php else:
+                            <a href="ticket.php?id=<?php echo $post['id']; ?>">Voir plus</a>
+                        <?php else:
                             echo $post['description'];
                             ?>
-                    <?php endif; ?>
-                </p>
-            </div>
-            <div class="bottom">
-                <?php
+                        <?php endif; ?>
+                    </p>
+                </div>
+                <div class="bottom">
+                    <?php
                     $post['date_heure'] = explode(" ", $post['date_heure']);
 
                     foreach ($post['date_heure'] as $date):
                         ?>
-                <p><?php echo htmlspecialchars($date) ?></p>
-                <p>|</p>
-                <?php endforeach; ?>
-                <p><?php echo htmlspecialchars($post['lieu']) ?></p>
+                        <p><?php echo htmlspecialchars($date) ?></p>
+                        <p>|</p>
+                    <?php endforeach; ?>
+                    <p><?php echo htmlspecialchars($post['lieu']) ?></p>
+                    <p>|</p>
+                    <a href="scripts/deleteTicket.php?id=<?php echo $post['id']; ?>">delete</a>
+                </div>
             </div>
-        </div>
-        <div class="offer">
-            <?php
+            <div class="offer">
+                <?php
                 $request = $connectDatabase->prepare("SELECT * FROM bid WHERE post_id = :post_id");
                 $request->bindParam(':post_id', $post['id']);
                 $request->execute();
@@ -128,12 +130,12 @@ if (isset($_GET['categorie']) && strlen($_GET['categorie'])) {
                 ;
 
                 ?>
-            <h4><?php echo htmlspecialchars($numberBids) ?> offre(s) à partir de
-                <?php echo htmlspecialchars($lowestAmount) ?>€
-            </h4>
-            <a href="ticket.php?id=<?php echo $post['id']; ?>">Voir les offres</a>
+                <h4><?php echo htmlspecialchars($numberBids) ?> offre(s) à partir de
+                    <?php echo htmlspecialchars($lowestAmount) ?>€
+                </h4>
+                <a href="ticket.php?id=<?php echo $post['id']; ?>">Voir les offres</a>
+            </div>
         </div>
-    </div>
 
     <?php endforeach; ?>
 </div>
