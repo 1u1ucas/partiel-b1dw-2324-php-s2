@@ -18,4 +18,10 @@
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 
-<body></body>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.php">Accueil</a>
+            <a href="create.php">Créer un ticket</a>
+        </div>
+    </nav>
