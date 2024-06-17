@@ -42,11 +42,25 @@ $post = $request->fetch();
     </div>
     <div class="offer">
         <?php
-        $request = $connectDatabase->prepare("SELECT * FROM bid WHERE post_id = :post_id ORDER BY id DESC");
+        $request = $connectDatabase->prepare("SELECT * FROM bid WHERE post_id = :post_id ORDER BY `montant` DESC");
         $request->bindParam(':post_id', $post['id']);
         $request->execute();
         $bids = $request->fetchAll();
+
+        $highestBid = 0;
+        foreach ($bids as $bid) {
+            if ($bid['montant'] > $highestBid) {
+                $highestBid = $bid['montant'] + 1;
+            }
+        }
         ?>
+
+        <form action="scripts/addBid.php" method="POST">
+            <label for="montant">Montant</label>
+            <input type="number" name="montant" id="montant" step="0.01" min="<?php echo $highestBid ?>">
+            <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
+            <input type="submit">
+        </form>
 
         <?php foreach ($bids as $index => $bid): ?>
         <div class="bid">
